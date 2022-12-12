@@ -1,0 +1,48 @@
+# fly.toml file generated for jjtactictoe on 2022-12-12T16:20:01Z
+
+app = "jjtactictoe"
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
+
+[env]
+  CLIENTURL = "https://jjtactictoes.netlify.app"
+  DATABASE = "jjtactictoe"
+  DB_PORT = "5432"
+  DIALECT = "postgres"
+  HOST = "jjtactictoe-db.internal"
+  PASSWORD = "5hp6TmoUuLN9vuH"
+  PORT = "8080"
+  SECRET = "supersecretthing"
+  URL = "https://jjtactictoe.fly.dev"
+  USERNAME = "postgres"
+
+[experimental]
+  allowed_public_ports = []
+  auto_rollback = true
+
+[[services]]
+  http_checks = []
+  internal_port = 8080
+  processes = ["app"]
+  protocol = "tcp"
+  script_checks = []
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+    type = "connections"
+
+  [[services.ports]]
+    force_https = true
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+  [[services.tcp_checks]]
+    grace_period = "1s"
+    interval = "15s"
+    restart_limit = 0
+    timeout = "2s"

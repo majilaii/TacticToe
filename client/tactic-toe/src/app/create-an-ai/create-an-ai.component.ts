@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { APIClientService } from '../apiclient.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-create-an-ai',
@@ -12,13 +13,14 @@ export class CreateAnAiComponent implements OnInit {
   editAi:number;
   allAi:any =[]
   
-  constructor(public api : APIClientService) {}
+  constructor(public api : APIClientService) {
+  }
   ngOnInit(): void {
     console.log(this.optionCreate)
     this.api.sharedAllAi.subscribe(data=>{
       
         this.allAi = data;
-        if(this.allAi.length ===0){ 
+        if(this.allAi.length ===0){
           this.api.editAi(0)
           this.optionCreate = true;
         }else if(this.optionCreate===false){

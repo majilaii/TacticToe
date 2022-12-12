@@ -4,20 +4,24 @@ import { catchError, map, Observable, of } from 'rxjs';
 import { SocketioService } from './socketio.service';
 import { dataResponse, response } from './types';
 import { APIClientService } from './apiclient.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  ROOT_URL !: string;
 
-  constructor(private http: HttpClient, private socket: SocketioService, private api : APIClientService) { }
-  
+  constructor(private http: HttpClient, private socket: SocketioService, private api : APIClientService) {
+    this.ROOT_URL = environment.ROOT_URL
+   }
+
 
   public isLoggedIn = false;
 
   isAuthenticated(){
     let result = false;
-    return this.http.get('/api/loggedin', {withCredentials: true}).pipe(
+    return this.http.get(`${this.ROOT_URL}/loggedin`, {withCredentials: true}).pipe(
       map(() => {
         this.isLoggedIn = true;
         return true;
@@ -32,11 +36,11 @@ export class AuthService {
 
   validate(email:string, password:string) {
     // {'statusCode': 200, 'message':'logged in', 'user':req.user}
-    return this.http.post<dataResponse>('/api/login', {'username': email, 'password': password}, {withCredentials: true});
+    return this.http.post<dataResponse>(`${this.ROOT_URL}/login`, {'username': email, 'password': password}, {withCredentials: true});
   }
 
   register(email:string, firstName:string, lastName:string, password:string) {
-    return this.http.post<response>('/api/register', {email, firstName, lastName, password});
+    return this.http.post<response>(`${this.ROOT_URL}/register`, {email, firstName, lastName, password});
   }
 
   logout() {
@@ -45,7 +49,7 @@ export class AuthService {
     this.socket.clearSearchArray()
     this.socket.searching = false
     this.api.editAi(0)
-    return this.http.delete<response>('/api/logout', {withCredentials: true});
+    return this.http.delete<response>(`${this.ROOT_URL}/logout`, {withCredentials: true});
   }
 
 }

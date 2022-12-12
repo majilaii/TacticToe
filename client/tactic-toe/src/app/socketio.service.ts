@@ -1,12 +1,16 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { io } from 'socket.io-client';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketioService {
+  ROOT_URL!:string
 
-  constructor() { }
+  constructor() { 
+     this.ROOT_URL =environment.ROOT_URL
+  }
   socket: any; // find typing
   connected = false;
   connectedObservable = new EventEmitter(this.connected);
@@ -19,7 +23,7 @@ export class SocketioService {
   opponent = 'Bruce';
 
   setupSocketConnection() {
-    this.socket = io('http://localhost:3000', {
+    this.socket = io(`${this.ROOT_URL}`, {
       withCredentials: true,
       });
     this.socket.on('message', (msg:string) => {
