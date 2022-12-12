@@ -53,6 +53,13 @@ app.use(session({
     saveUninitialized: false,
     resave: false,
     secret: SECRET,
+    proxy: true,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24,
+        secure: true,
+        httpOnly: false,
+        sameSite: 'none'
+    }
 }));
 app.use(passport.initialize());
 app.use(passport.session());

@@ -57,6 +57,13 @@ app.use(session({
   saveUninitialized: false,
   resave: false,
   secret: SECRET,
+  proxy: true, // Required for Heroku & Digital Ocean (regarding X-Forwarded-For)
+  cookie: {
+  maxAge: 1000 * 60 * 60 * 24,
+  secure: true, // required for cookies to work on HTTPS
+  httpOnly: false,
+  sameSite: 'none'
+}
 }));
 
 app.use(passport.initialize());
