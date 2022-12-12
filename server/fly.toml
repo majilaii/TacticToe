@@ -6,7 +6,7 @@ kill_timeout = 5
 processes = []
 
 [env]
-  CLIENTURL = "https://jjtactictoes.netlify.app"
+  CLIENTURL = "https://delightful-capybara-bd2a8b.netlify.app"
   DATABASE = "jjtactictoe"
   DB_PORT = "5432"
   DIALECT = "postgres"
