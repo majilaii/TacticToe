@@ -50,8 +50,8 @@ const corsConfig = {
   origin: [process.env.URL || 'http://localhost:3000', process.env.CLIENTURL || 'http://localhost:4200'],
   credentials: true,
 }
+app.enable('trust proxy')
 app.use(cors(corsConfig));
-app.options('*', cors(corsConfig));
 
 app.use(session({
   name: 'sid',
