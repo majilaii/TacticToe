@@ -12,10 +12,10 @@ import { TrainComponent } from './train/train.component';
 
 
 const routes: Routes = [
-  { path: 'yourai', component: CreateAnAiComponent},
-  { path: 'train/:id', component: TrainComponent},
-  { path: 'battle', component: BattleComponent}, 
-  { path: 'battle/:id', component: MatchComponent},
+  { path: 'yourai', component: CreateAnAiComponent, canActivate: [AuthGuard]},
+  { path: 'train/:id', component: TrainComponent, canActivate: [AuthGuard]},
+  { path: 'battle', component: BattleComponent, canActivate: [AuthGuard]}, 
+  { path: 'battle/:id', component: MatchComponent, canActivate: [AuthGuard]},
   { path: 'about', component: AboutComponent},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
