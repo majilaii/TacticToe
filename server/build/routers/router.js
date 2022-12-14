@@ -12,10 +12,10 @@ const { aiRouter } = require('./aiRouter');
 const { authRouter } = require('./authRouter');
 const { isLoggedIn } = require('../utils/passport');
 router.use('/', authRouter);
-router.use('/ai', isLoggedIn, aiRouter);
+router.use('/ai', aiRouter);
 router.get('/', (req, res) => {
     res.send('<h1>Hello World!</h1>');
 });
-router.get('/loggedin', isLoggedIn, (req, res) => {
+router.get('/loggedin', (req, res) => {
     res.json('logged in');
 });
